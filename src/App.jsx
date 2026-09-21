@@ -52,10 +52,7 @@ function App() {
             />
           }
         />
-        <Route
-          path="/country/:code"
-          element={<CountryDetail countries={countries} />}
-        />
+        <Route path="/country/:code" element={<CountryDetail />} />
       </Routes>
     </div>
   );

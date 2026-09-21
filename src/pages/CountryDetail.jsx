@@ -1,9 +1,29 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
+import rawData from "../data.json";
 import "./CountryDetail.css";
 
-function CountryDetail({ countries }) {
+function CountryDetail() {
   const { code } = useParams();
   const navigate = useNavigate();
+
+  const countries = rawData.map((country) => ({
+    cca3: country.alpha3Code,
+    name: {
+      common: country.name,
+      nativeName: country.nativeName
+        ? { [country.alpha2Code]: { common: country.nativeName } }
+        : undefined,
+    },
+    population: country.population,
+    region: country.region,
+    subregion: country.subregion,
+    capital: country.capital ? [country.capital] : [],
+    flags: { png: country.flags?.png || country.flag },
+    tld: country.topLevelDomain,
+    currencies: country.currencies,
+    languages: country.languages,
+    borders: country.borders || [],
+  }));
 
   const country = countries.find((c) => c.cca3 === code);
 
